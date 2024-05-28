@@ -1,22 +1,24 @@
 import { SignedOut, SignedIn } from "@clerk/nextjs";
-import { db } from "~/server/db";
+import { getMyCycles } from "~/server/queries";
+import Image from "next/image";
 
 export const dynamic = "force-dynamic";
 
 async function Cycles() {
-  {
-    const cycles = await db.query.cycle.findMany({
-      orderBy: (model, { desc }) => desc(model.id),
-    });
+  const cycles = await getMyCycles();
 
-    console.log(cycles);
-    return cycles.map((cycle) => (
-      <div className="cycle">
-        <div key={cycle.id}>{cycle.name}</div>
-        <img src={cycle.url} />
-      </div>
-    ));
-  }
+  return cycles.map((cycle) => (
+    <div className="cycle">
+      <div key={cycle.id}>{cycle.name}</div>
+      <Image
+        src={cycle.url}
+        style={{ objectFit: "contain" }}
+        width={480}
+        height={480}
+        alt={cycle.name}
+      />
+    </div>
+  ));
 }
 
 export default async function HomePage() {
