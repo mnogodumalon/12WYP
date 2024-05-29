@@ -13,3 +13,16 @@ export async function getMyCycles() {
   });
   return cycles;
 }
+
+export async function getCycle(id: number) {
+  const user = auth();
+  if (!user.userId) throw new Error("Unauthorized");
+  const cycle = await db.query.cycle.findFirst({
+    where: (model, { eq }) => eq(model.id, id),
+  });
+
+  if (!cycle) throw new Error("Cycle not found");
+
+  if (cycle.userId !== user.userId) throw new Error("Unauthorized");
+  return cycle;
+}

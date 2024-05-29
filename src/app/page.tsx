@@ -1,6 +1,7 @@
 import { SignedOut, SignedIn } from "@clerk/nextjs";
 import { getMyCycles } from "~/server/queries";
 import Image from "next/image";
+import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
@@ -10,13 +11,15 @@ async function Cycles() {
   return cycles.map((cycle) => (
     <div className="cycle">
       <div key={cycle.id}>{cycle.name}</div>
-      <Image
-        src={cycle.url}
-        style={{ objectFit: "contain" }}
-        width={480}
-        height={480}
-        alt={cycle.name}
-      />
+      <Link href={`cycle/${cycle.id}`}>
+        <Image
+          src={cycle.url}
+          style={{ objectFit: "contain" }}
+          width={480}
+          height={480}
+          alt={cycle.name}
+        />
+      </Link>
     </div>
   ));
 }
