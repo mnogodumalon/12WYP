@@ -8,6 +8,7 @@ import { ourFileRouter } from "./api/uploadthing/core";
 import { ClerkProvider } from "@clerk/nextjs";
 
 import { GeistSans } from "geist/font/sans";
+import { Toaster } from "sonner";
 
 export const metadata = {
   title: "Create T3 App",
@@ -39,6 +40,7 @@ export default function RootLayout({
           {children}
           {modal}
           <div id="modal-root" />
+          <Toaster />
         </body>
       </html>
     </ClerkProvider>
