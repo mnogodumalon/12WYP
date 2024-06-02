@@ -2,6 +2,7 @@ import { SignedOut, SignedIn } from "@clerk/nextjs";
 import { getMyCycles } from "~/server/queries";
 import Image from "next/image";
 import Link from "next/link";
+import SimpleUploadButton from "./_components/upload-button";
 
 export const dynamic = "force-dynamic";
 
@@ -33,6 +34,7 @@ export default async function HomePage() {
         </div>
       </SignedOut>
       <SignedIn>
+        <SimpleUploadButton />
         <Cycles />
       </SignedIn>
       Hello

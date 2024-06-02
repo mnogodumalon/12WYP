@@ -29,6 +29,8 @@ export const ourFileRouter = {
         userId: metadata.userId,
         name: file.name,
         url: file.url,
+        startDate: new Date(),
+        endDate: new Date(),
       });
 
       console.log("file url", file.url);
