@@ -35,7 +35,7 @@ export default async function HomePage() {
       </SignedOut>
       <SignedIn>
         <SimpleUploadButton />
-        <Cycles />
+        {/* <Cycles /> */}
       </SignedIn>
       Hello
     </main>
