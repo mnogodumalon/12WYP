@@ -9,6 +9,8 @@ import { ClerkProvider } from "@clerk/nextjs";
 
 import { GeistSans } from "geist/font/sans";
 import { Toaster } from "sonner";
+import { getData } from "./actions/cycleActions";
+import { ThemeProvider } from "./_components/theme-provider";
 
 export const metadata = {
   title: "Create T3 App",
@@ -16,13 +18,13 @@ export const metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
-  modal,
 }: {
   children: React.ReactNode;
-  modal: React.ReactNode;
 }) {
+  const data = await getData();
+
   return (
     <ClerkProvider>
       <html lang="en" className={`${GeistSans.variable}`}>
@@ -36,11 +38,18 @@ export default function RootLayout({
           routerConfig={extractRouterConfig(ourFileRouter)}
         />
         <body>
-          <TopNav />
-          {children}
-          {modal}
-          <div id="modal-root" />
-          <Toaster />
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <div className="h-screen">
+              <TopNav data={data} />
+              {children}
+            </div>
+            <Toaster />
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>
